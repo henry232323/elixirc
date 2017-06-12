@@ -1,4 +1,4 @@
-defmodule Elixirc.EventManager.Connector do
+defmodule Elixirc.Connection.Connector do
   def connect(%{ssl?: false}, host, port, options) do
     :gen_tcp.connect(host, port, options)
   end

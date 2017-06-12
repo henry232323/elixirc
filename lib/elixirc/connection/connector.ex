@@ -1,9 +1,9 @@
 defmodule Elixirc.Connection.Connector do
-  def connect(%{ssl?: false}, host, port, options) do
-    :gen_tcp.connect(host, port, options)
+  def connect(%{ssl?: false}, host, port) do
+    :gen_tcp.connect(host, port, [:binary, packet: :line, active: false])
   end
-  def connect(%{ssl?: true}, host, port, options) do
-    :ssl.connect(host, port, options)
+  def connect(%{ssl?: true}, host, port) do
+    :ssl.connect(host, port, [:binary, packet: :line, active: false])
   end
 
   def send(%{ssl?: false, socket: socket}, data) do

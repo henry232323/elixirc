@@ -1,21 +1,21 @@
-defmodule Elixirc.ExampleConsumer do
+defmodule ExampleConsumer do
     use GenStage
     alias Elixirc.Client
 
     def start_link do
-      GenStage.start_link(__MODULE__, :ok)
+      GenStage.start_link(__MODULE__, :state_doesnt_matter)
     end
 
-    def init(:ok) do
-      {:consumer, :ok, subscribe_to: [Elixirc.EventManager]}
+    def init(state) do
+      {:consumer, state, subscribe_to: [Elixirc.EventManager]}
     end
 
     def handle_events([:mode], _from, state) do
       Client.send(["JOIN", "#pesterchum"])
-      {:noreply, [:mode], state}
+      {:noreply, [], state}
     end
 
-    def handle_events(events, _from, state) do
-      {:noreply, events, state}
+    def handle_events(_events, _from, state) do
+      {:noreply, [], state}
     end
 end

@@ -17,7 +17,7 @@ defmodule Elixirc.Mixfile do
     # Specify extra applications you'll use from Erlang/Elixir
     [
       extra_applications: [:logger],
-      mod: {Elixirc.App, [%{ssl?: false}, 'irc.mindfang.org', 1413, [:binary, packet: :line, active: false]]}
+      mod: {Elixirc.App, [%{ssl?: false}, 'irc.mindfang.org', 1413]}
     ]
   end
 

@@ -47,6 +47,7 @@ defmodule Elixirc.EventManager do
   def handle_cast({:send, args}, state) do
     request = Enum.join(args, " ") ++ "\r\n"
     Elixirc.Connection.Connector.send(state.socket, request)
+    {:noreply, [:send, args], state}
   end
 
   def start(_type, [socket]) do

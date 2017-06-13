@@ -1,6 +1,20 @@
 defmodule Elixirc.Mixfile do
   use Mix.Project
 
+  defmodule State do
+    defstruct address: "",
+              port: "",
+              ssl: false,
+              nick: "",
+              name: "",
+              user: "",
+              pass: "",
+              pinging: false,
+              channels: [],
+              users: [],
+              socket: nil
+  end
+
   def project do
     [app: :elixirc,
      version: "0.1.0",
@@ -17,7 +31,7 @@ defmodule Elixirc.Mixfile do
     # Specify extra applications you'll use from Erlang/Elixir
     [
       extra_applications: [:logger],
-      mod: {Elixirc.App, [%{ssl?: false}, 'irc.mindfang.org', 1413]}
+      mod: {TestConsumer, []}
     ]
   end
 

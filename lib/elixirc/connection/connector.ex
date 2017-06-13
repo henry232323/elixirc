@@ -13,6 +13,13 @@ defmodule Elixirc.Connection.Connector do
     :ssl.send(socket, data)
   end
 
+  def recv(%{ssl?: false, socket: socket}, amount) do
+    :gen_tcp.recv(socket, amount)
+  end
+  def recv(%{ssl?: true, socket: socket}, amount) do
+    :ssl.recv(socket, amount)
+  end
+
   def close(%{ssl?: false, socket: socket}) do
     :gen_tcp.close(socket)
   end

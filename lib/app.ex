@@ -1,7 +1,7 @@
 defmodule Elixirc.App do
     use Application
 
-    def start(_type, [%{ssl?: ssl?}, host, port]) do
-      Elixirc.start!(%{ssl?: ssl?}, host, port)
+    def start(_type, [state]) do
+      Elixirc.start!(state)
     end
 end

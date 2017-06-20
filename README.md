@@ -9,11 +9,11 @@ defmodule ElixircTest do
 
   def start(_type, _args) do
     state = %Elixirc.State{address: 'irc.mindfang.org',
-                                                    port: 1413,
-                                                    ssl: false,
-                                                    nick: "Henry",
-                                                    name: "pcc31",
-                                                    pinging: true}
+                           port: 1413,
+                           ssl: false,
+                           nick: "Henry",
+                           name: "pcc31",
+                           pinging: true}
     Elixirc.start!(state)
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end

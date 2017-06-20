@@ -1,5 +1,5 @@
 # elixirc
-A small lightweight Elixir IRC library
+A small lightweight Elixir IRC library based off the Python IRC library [aioyoyo](https://github.com/henry232323/aioyoyo)/oyoyo
 
 # Example usage
 ```elixir
@@ -8,11 +8,11 @@ defmodule ElixircTest do
   import Supervisor.Spec
 
   def start(_type, _args) do
-    state = %Elixirc.State{address: 'irc.mindfang.org',
-                           port: 1413,
+    state = %Elixirc.State{address: 'chat.freenode.net',
+                           port: 6667,
                            ssl: false,
-                           nick: "Henry",
-                           name: "pcc31",
+                           nick: "henry232323",
+                           name: "henry232323",
                            pinging: true}
     Elixirc.start!(state)
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)

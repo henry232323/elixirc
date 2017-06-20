@@ -1,20 +1,6 @@
 defmodule Elixirc.EventManager do
   use GenStage
 
-  defmodule State do
-    defstruct address: "",
-              port: "",
-              ssl: false,
-              nick: "",
-              name: "",
-              user: "",
-              pass: "",
-              pinging: false,
-              channels: [],
-              users: [],
-              socket: nil
-  end
-
   def start_link(state) do
     Task.start(fn -> Elixirc.Connection.sock_read(state.socket, "") end)
     GenStage.start_link(__MODULE__, state, name: __MODULE__)
@@ -28,18 +14,21 @@ defmodule Elixirc.EventManager do
     {:noreply, [{command, args, state}], state}
   end
 
+  def handle_cast({:update_state, newstate}, _state) do
+    {:noreply, [], newstate}
+  end
+
   def handle_cast({:send, args}, state) do
     request = Enum.join(args, " ") <> "\r\n"
     Elixirc.Connection.Connector.send(state.socket, request)
-    IO.inspect(request)
     {:noreply, [:send], state}
   end
 
-  def handle_cast({cast, args}, state) do
+  def handle_cast({cast, _args}, state) do
     {:noreply, [cast], state}
   end
 
-  def handle_demand(demand, state) do
+  def handle_demand(_demand, state) do
     {:noreply, [], state}
   end
 

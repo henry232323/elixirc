@@ -1,20 +1,6 @@
 defmodule Elixirc.Mixfile do
   use Mix.Project
 
-  defmodule State do
-    defstruct address: "",
-              port: "",
-              ssl: false,
-              nick: "",
-              name: "",
-              user: "",
-              pass: "",
-              pinging: false,
-              channels: [],
-              users: [],
-              socket: nil
-  end
-
   def project do
     [app: :elixirc,
      version: "0.1.0",

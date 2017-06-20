@@ -11,17 +11,23 @@ defmodule Elixirc.Consumer do
 
     defmacro __using__(_) do
       quote location: :keep do
-        def handle_event(_command, _args, state) do
-          IO.puts("shit!")
+        def handle_command(_command, _args, state) do
           {:ok, state}
         end
 
-        defoverridable [handle_event: 3]
+        defoverridable [handle_command: 3]
       end
     end
 
+    def handle_command(:ping, [msg | msg], state) do
+      if state.pinging do
+        Client.send(["PONG", msg])
+      end
+      {:ok, state}
+    end
+
     def handle_events([{command, args, clientstate}], _from, module) do
-      {:ok, newclientstate} = module.handle_event(command, args, clientstate)
+      {:ok, newclientstate} = module.handle_command(command, args, clientstate)
       GenStage.cast(Elixirc.EventManager, {:update_state, newclientstate})
       {:noreply, [], module}
     end

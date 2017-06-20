@@ -24,7 +24,6 @@ defmodule Elixirc do
     {:ok, socket} = Elixirc.Connection.Connector.connect(%{ssl?: state.ssl}, state.address, state.port)
     children = [
       worker(Elixirc.EventManager, [%{state | socket: %{ssl?: state.ssl, socket: socket}}], restart: :temporary),
-      #worker(Elixirc.Consumer, [], restart: :temporary)
     ]
     supervise(children, strategy: :one_for_one)
   end

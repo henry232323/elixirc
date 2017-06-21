@@ -34,7 +34,7 @@ A small lightweight Elixir IRC library based off the Python IRC library [aioyoyo
       Elixirc.Consumer.start_link(__MODULE__, :ok)
     end
 
-    def handle_command(:mode, _args, state) do
+    def handle_command(:welcome, _args, state) do
       Client.send(["JOIN", "#elixir-lang"])
       {:ok, state}
     end

@@ -30,8 +30,8 @@ defmodule TestConsumer do
     Elixirc.Consumer.start_link(__MODULE__, :ok)
   end
 
-  def handle_command(:mode, _args, state) do
-    send(state.state, :mode)
+  def handle_command(:welcome, _args, state) do
+    send(state.state, :welcome)
     Client.send(["JOIN", "#elixir-lang"])
     {:ok, state}
   end
@@ -43,7 +43,7 @@ defmodule TestConsumer do
     {:ok, state}
   end
 
-  def handle_command(_command, _args, state) do
+  def handle_command(command, args, state) do
     {:ok, state}
   end
 end
@@ -56,7 +56,7 @@ defmodule ElixircTest do
   test "commands and connection" do
       TestSupervisor.start(self())
 
-      assert_receive :mode, 30000
+      assert_receive :welcome, 30000
       assert_receive :notice, 30000
       Elixirc.Client.close()
   end

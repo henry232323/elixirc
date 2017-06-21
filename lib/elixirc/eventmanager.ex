@@ -24,6 +24,11 @@ defmodule Elixirc.EventManager do
     {:noreply, [:send], state}
   end
 
+  def handle_cast(:close, state) do
+    Elixirc.Connection.Connector.close(state.socket)
+    {:noreply, [], state}
+  end
+
   def handle_cast({cast, _args}, state) do
     {:noreply, [cast], state}
   end

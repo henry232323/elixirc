@@ -55,7 +55,9 @@ defmodule ElixircTest do
 
   test "commands and connection" do
       TestSupervisor.start(self())
+
       assert_receive :mode, 30000
       assert_receive :notice, 30000
+      Elixirc.Client.close()
   end
 end

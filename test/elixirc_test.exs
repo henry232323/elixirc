@@ -43,7 +43,7 @@ defmodule TestConsumer do
     {:ok, state}
   end
 
-  def handle_command(command, args, state) do
+  def handle_command(_command, _args, state) do
     {:ok, state}
   end
 end
@@ -55,9 +55,8 @@ defmodule ElixircTest do
 
   test "commands and connection" do
       TestSupervisor.start(self())
-
-      assert_receive :welcome, 30000
       assert_receive :notice, 30000
+      assert_receive :welcome, 30000
       Elixirc.Client.close()
   end
 end

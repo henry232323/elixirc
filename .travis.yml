@@ -3,3 +3,7 @@ elixir:
   - 1.4.2
 otp_release:
   - 19
+addons:
+    apt:
+        packages:
+            - libssl1.0.0

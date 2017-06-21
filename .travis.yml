@@ -3,6 +3,8 @@ elixir:
   - 1.4.2
 otp_release:
   - 19
+dist: trusty
+sudo: true
 addons:
     apt:
         packages:

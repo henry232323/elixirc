@@ -13,7 +13,8 @@ defmodule Elixirc do
               pinging: false,
               channels: [],
               users: [],
-              socket: nil
+              socket: nil,
+              state: %{} # sub state
   end
 
   def start!(state) do

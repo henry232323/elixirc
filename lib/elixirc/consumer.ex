@@ -1,5 +1,6 @@
 defmodule Elixirc.Consumer do
     use GenStage
+    alias Elixirc.Client
 
     def start_link(module, :ok) do
       GenStage.start_link(__MODULE__, module, name: __MODULE__)

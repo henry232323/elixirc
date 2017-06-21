@@ -212,8 +212,8 @@ defmodule Elixirc.Events do
     [command|args] = parts
     prefix = nil
     if String.starts_with?(command, ":") do
-      [prefix | [command | args]] = parts
-      prefix = String.replace_prefix(prefix, ":", "")
+      [_prefix | [command | args]] = parts
+      #prefix = String.replace_prefix(prefix, ":", "")
     end
 
     command = String.downcase(command)

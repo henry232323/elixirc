@@ -3,11 +3,14 @@ defmodule TestSupervisor do
   import Supervisor.Spec
 
   def start(pid) do
+    name = :crypto.strong_rand_bytes(10)
+            |> Base.url_encode64
+            |> binary_part(0, 10)
     state = %Elixirc.State{address: 'hobana.freenode.net',
                            port: 6667,
                            ssl: false,
-                           nick: "henry232323",
-                           name: "henry232323",
+                           nick: name,
+                           name: name,
                            pinging: true,
                            state: pid}
     Elixirc.start!(state)

@@ -3,11 +3,15 @@ defmodule Elixirc.Mixfile do
 
   def project do
     [app: :elixirc,
-     version: "0.1.0",
+     version: "0.1.2",
+     description: "An Elixir IRC module providing GenStage/callback based IRC Clients."
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     package: package(),
+     source_url: "https://github.com/henry232323/elixirc/",
+     homepage_url: "https://github.com/henry232323/elixirc/"]
   end
 
   # Configuration for the OTP application
@@ -34,6 +38,15 @@ defmodule Elixirc.Mixfile do
       {:httpoison, "~> 0.11.1"},
       {:gun, "~> 1.0.0-pre.2"},
       {:gen_stage, "~> 0.11"}
+    ]
+  end
+
+  def package do
+    [
+      name: :elixirc,
+      licenses: ["MIT"],
+      maintainers: ["henry232323"],
+      links: %{"GitHub" => "https://github.com/henry232323/elixirc/"}
     ]
   end
 end

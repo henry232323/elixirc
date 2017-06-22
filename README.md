@@ -22,7 +22,7 @@ defmodule ElixircTest do
 
   def init(:ok) do
     children = [
-      worker(TestConsumer, [:ok], restart: :temporary)
+      worker(TestConsumer, [:ok])
     ]
     supervise(children, strategy: :one_for_one)
   end
@@ -56,7 +56,6 @@ defmodule Elixirc.State do
             ssl: false,
             nick: "",
             name: "",
-            user: "",
             pass: "",
             pinging: false,
             reconnect: false,
@@ -77,5 +76,4 @@ end
  - Users:     The user list
  - Nick:      The nick that will be used
  - Name:      The name that will be used
- - User:      The username that will be used with SASL/NickServ
  - Pass:      The password that will be used with SASL/NickServ

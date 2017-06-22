@@ -23,7 +23,7 @@ defmodule TestSupervisor do
 
   def init(:ok) do
     children = [
-      worker(TestConsumer, [:ok], restart: :temporary)
+      worker(TestConsumer, [:ok])
     ]
     supervise(children, strategy: :one_for_one)
   end

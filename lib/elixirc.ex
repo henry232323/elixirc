@@ -8,7 +8,6 @@ defmodule Elixirc do
               ssl: false,
               nick: "",
               name: "",
-              user: "",
               pass: "",
               pinging: false,
               reconnect: false,
@@ -25,7 +24,7 @@ defmodule Elixirc do
   def init(state) do
     {:ok, socket} = Elixirc.Connection.Connector.connect(%{ssl?: state.ssl}, state.address, state.port)
     children = [
-      worker(Elixirc.EventManager, [%{state | socket: %{ssl?: state.ssl, socket: socket}}], restart: :temporary),
+      worker(Elixirc.EventManager, [%{state | socket: %{ssl?: state.ssl, socket: socket}}]),
     ]
     supervise(children, strategy: :one_for_one)
   end

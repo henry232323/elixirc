@@ -44,9 +44,12 @@ defmodule Elixirc.Consumer do
     end
 
     def handle_command(:notice, _args, state) do
-      Logger.info("Received :notice, sending login #{state.nick}, #{state.user}")
+      Logger.info("Received :notice, sending login #{state.nick}, #{state.name}")
       Client.send(["NICK", state.nick])
       Client.send(["USER", state.name, state.address, state.address, state.name])
+      if state.pass != "" do
+        Client.send_nickserv("IDENTIFY", state.pass)
+      end
       {:ok, state}
     end
 

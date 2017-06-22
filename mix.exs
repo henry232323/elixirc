@@ -36,8 +36,8 @@ defmodule Elixirc.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.11.1"},
-      {:gun, "~> 1.0.0-pre.2"},
-      {:gen_stage, "~> 0.11"}
+      {:gen_stage, "~> 0.11"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 

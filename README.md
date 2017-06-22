@@ -67,8 +67,8 @@ defmodule Elixirc.State do
             pass: "",
             pinging: false,
             reconnect: false,
-            channels: [],
-            users: [],
+            channels: {},
+            users: %{},
             socket: nil,
             state: %{} # sub state
 end

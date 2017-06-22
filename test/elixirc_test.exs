@@ -3,7 +3,7 @@ defmodule TestSupervisor do
   import Supervisor.Spec
 
   def start(pid) do
-    state = %Elixirc.State{address: 'chat.freenode.net',
+    state = %Elixirc.State{address: 'hobana.freenode.net',
                            port: 6667,
                            ssl: false,
                            nick: "henry232323",

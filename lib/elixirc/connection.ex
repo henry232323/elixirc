@@ -2,7 +2,6 @@ defmodule Elixirc.Connection do
   def sock_read(socket, buffer) do
     case Elixirc.Connection.Connector.recv(socket, 0) do
       {:ok, data} ->
-        IO.inspect(data)
         buffer = buffer <> data
         [current | bfs] = String.split(buffer, "\n")
         buffer = Enum.join(bfs)

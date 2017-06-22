@@ -31,15 +31,15 @@ defmodule Elixirc.Consumer do
       users = names
               |> String.replace_prefix(":", "")
               |> String.split(" ")
-      {:ok, %{state | users: users}}
+      {:ok, %{state | users: Map.put(state.users, channel, users)}}
     end
 
     def handle_command(:join, [user, channel], state) do
-      {:ok, %{state | users: Map.put(state.users, List.insert_at(state.users[channel], -1, user))}}
+      {:ok, %{state | users: Map.put(state.users, channel, List.insert_at(state.users[channel], -1, user))}}
     end
 
     def handle_command(:part, [user, channel], state) do
-      {:ok, %{state | users: %{Map.put(state.users, List.delete(state.users[channel], user)}}
+      {:ok, %{state | users: Map.put(state.users, channel, List.delete(state.users[channel], user))}}
     end
 
     def handle_events([{command, args, clientstate}], _from, module) do

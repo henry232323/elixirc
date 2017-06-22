@@ -3,14 +3,18 @@ defmodule TestSupervisor do
   import Supervisor.Spec
 
   def start(pid) do
-    name = :crypto.strong_rand_bytes(10)
-            |> Base.url_encode64
-            |> binary_part(0, 10)
-    state = %Elixirc.State{address: 'hobana.freenode.net',
+    chars = "abcdefghijklmnopqrstuvwxyz"
+            |> String.split("")
+
+    name = Enum.reduce((1..10), [], fn (_i, acc) ->
+           [Enum.random(chars) | acc]
+           end) |> Enum.join("")
+
+    state = %Elixirc.State{address: 'irc.mindfang.org',
                            port: 6667,
                            ssl: false,
                            nick: name,
-                           name: name,
+                           name: "pcc31",
                            pinging: true,
                            state: pid}
     Elixirc.start!(state)

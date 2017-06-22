@@ -28,6 +28,9 @@ defmodule Elixirc.Consumer do
     end
 
     def handle_events([{command, args, clientstate}], _from, module) do
+      if command == :ping do
+        handle_command(command, args, clientstate)
+      end
       {:ok, newclientstate} = module.handle_command(command, args, clientstate)
       GenStage.cast(Elixirc.EventManager, {:update_state, newclientstate})
       {:noreply, [], module}

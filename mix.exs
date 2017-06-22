@@ -4,7 +4,7 @@ defmodule Elixirc.Mixfile do
   def project do
     [app: :elixirc,
      version: "0.1.2",
-     description: "An Elixir IRC module providing GenStage/callback based IRC Clients."
+     description: "An Elixir IRC module providing GenStage/callback based IRC Clients.",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,

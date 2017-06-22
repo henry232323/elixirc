@@ -27,8 +27,24 @@ defmodule Elixirc.Consumer do
       {:ok, state}
     end
 
+    def handle_command(:namreply, [_user, "=", channel, _name | names], state) do
+      users = names
+              |> String.replace_prefix(":", "")
+              |> String.split(" ")
+      {:ok, %{state | users: users}}
+    end
+
+    def handle_command(:join, [user, channel], state) do
+      {:ok, %{state | users: Map.put(state.users, List.insert_at(state.users[channel], -1, user))}}
+    end
+
+    def handle_command(:part, [user, channel], state) do
+      {:ok, %{state | users: %{Map.put(state.users, List.delete(state.users[channel], user)}}
+    end
+
     def handle_events([{command, args, clientstate}], _from, module) do
-      if command == :ping do
+      overrides = [:part, :join, :namreply, :ping]
+      if command in overrides do
         handle_command(command, args, clientstate)
       end
       {:ok, newclientstate} = module.handle_command(command, args, clientstate)

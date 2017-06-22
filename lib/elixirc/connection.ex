@@ -14,7 +14,10 @@ defmodule Elixirc.Connection do
           GenStage.cast(Elixirc.EventManager, {:command, cmd})
         end
         sock_read(socket, buffer)
-      {:error, :closed} -> Elixirc.Connection.Connector.close(socket)
+      {:error, error} ->
+        Elixirc.Connection.Connector.close(socket)
+        Logger.info("Socket has been closed: #{error}")
+        GenStage.cast(Elixirc.EventManager, {:socket_closed, error})
     end
   end
 end

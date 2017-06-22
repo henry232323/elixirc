@@ -11,8 +11,9 @@ defmodule Elixirc do
               user: "",
               pass: "",
               pinging: false,
-              channels: [],
-              users: [],
+              reconnect: false,
+              channels: {},
+              users: %{},
               socket: nil,
               state: %{} # sub state
   end

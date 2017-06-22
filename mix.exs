@@ -33,7 +33,7 @@ defmodule Elixirc.Mixfile do
   #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
   #
   # Type "mix help deps" for more examples and options
-  defp deps do
+  def deps do
     [
       {:httpoison, "~> 0.11.1"},
       {:gen_stage, "~> 0.11"},

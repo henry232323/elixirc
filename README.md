@@ -1,5 +1,6 @@
 # elixirc
 [![Build Status](https://travis-ci.org/henry232323/elixirc.svg?branch=master)](https://travis-ci.org/henry232323/elixirc)
+<br />
 A small lightweight Elixir IRC library based off the Python IRC library [aioyoyo](https://github.com/henry232323/aioyoyo)/oyoyo
 
 # Example usage

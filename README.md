@@ -41,13 +41,6 @@ defmodule TestConsumer do
     {:ok, state}
   end
 
-  def handle_command(:notice, _args, state) do
-    IO.puts("Connected!")
-    Client.send(["NICK", state.nick])
-    Client.send(["USER", state.name, state.address, state.address, state.name])
-    {:ok, state}
-  end
-
   def handle_command(_command, _args, state) do
     {:ok, state}
   end

@@ -1,6 +1,7 @@
 defmodule Elixirc.Consumer do
     use GenStage
     alias Elixirc.Client
+    require Logger
 
     def start_link(module, :ok) do
       GenStage.start_link(__MODULE__, module, name: __MODULE__)
@@ -42,10 +43,17 @@ defmodule Elixirc.Consumer do
       {:ok, %{state | users: Map.put(state.users, channel, List.delete(state.users[channel], user))}}
     end
 
+    def handle_command(:notice, _args, state) do
+      Logger.info("Received :notice, sending login #{state.nick}, #{state.user}")
+      Client.send(["NICK", state.nick])
+      Client.send(["USER", state.name, state.address, state.address, state.name])
+      {:ok, state}
+    end
+
     def handle_events([{command, args, clientstate}], _from, module) do
-      overrides = [:part, :join, :namreply, :ping]
+      overrides = [:part, :join, :namreply, :ping, :notice]
       if command in overrides do
-        handle_command(command, args, clientstate)
+        {:ok, clientstate} = handle_command(command, args, clientstate)
       end
       {:ok, newclientstate} = module.handle_command(command, args, clientstate)
       GenStage.cast(Elixirc.EventManager, {:update_state, newclientstate})

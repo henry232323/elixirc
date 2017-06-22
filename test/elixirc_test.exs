@@ -39,14 +39,11 @@ defmodule TestConsumer do
 
   def handle_command(:welcome, _args, state) do
     send(state.state, :welcome)
-    Client.send(["JOIN", "#elixir-lang"])
     {:ok, state}
   end
 
   def handle_command(:notice, _args, state) do
     send(state.state, :notice)
-    Client.send(["NICK", state.nick])
-    Client.send(["USER", state.name, state.address, state.address, state.name])
     {:ok, state}
   end
 

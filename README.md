@@ -96,6 +96,10 @@ end
   is preceded by a prefix) then a list of its arguments, and finally the current state
   as defined above.
 
+  A list of numeric events can be found [here](https://www.alien.net.au/irc/irc2numerics.html)
+  The commands used by the client can be found in the [source](https://github.com/henry232323/elixirc/blob/master/lib/elixirc/events.ex)
+  (A little long to be listed here) or accessed as `Elixirc.Events.events`
+
 # Handle Event
   `handle_event/3` will be called with every action on the part of the client and certain
   other events. It operates in the same fashion as `handle_command/3` with the first

@@ -18,7 +18,7 @@ defmodule ElixircTest do
                            name: "henry232323",
                            pinging: true}
     Elixirc.start!(state)
-    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+    Supervisor.start_link(__MODULE__, state, name: __MODULE__)
   end
 
   def init(:ok) do
@@ -37,12 +37,22 @@ defmodule TestConsumer do
     Elixirc.Consumer.start_link(__MODULE__, :ok)
   end
 
-  def handle_command(:welcome, _args, state) do
+  def handle_command(:welcome, [message], state) do
     Client.send(["JOIN", "#elixir-lang"])
+    IO.inspect("We've been welcomed with the following message: #{message}")
     {:ok, state}
   end
 
   def handle_command(_command, _args, state) do
+    {:ok, state}
+  end
+
+  def handle_event(:send, {request}, state) do
+    IO.puts("Sent message #{request}")
+    {:ok, state}
+  end
+
+  def handle_event(_event, _args, state) do
     {:ok, state}
   end
 end
@@ -78,3 +88,19 @@ end
  - Nick:      The nick that will be used
  - Name:      The name that will be used
  - Pass:      The password that will be used with SASL/NickServ
+
+# Handle Commands
+  handle_command/3 will be called with every message sent from the server. As shown
+  in the above examples it will be called first with an atom representing the command
+  (usually in all caps in the message as the first argument, or if a numeric command
+  is preceded by a prefix) then a list of its arguments, and finally the current state
+  as defined above.
+
+# Handle Event
+  handle_event/3 will be called with every action on the part of the client and certain
+  other events. It operates in the same fashion as handle_command/3 with the first
+  argument being the event, the second being a tuple of its arguments and the third
+  being the state. Valid events include:
+    - :socket_closed    {reason}    The socket was closed for some reason
+    - :close            {}          The client/socket have been closed by user
+    - :send             {message}   A message has been sent to the server

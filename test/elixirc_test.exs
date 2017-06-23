@@ -18,12 +18,12 @@ defmodule TestSupervisor do
                            pinging: true,
                            state: pid}
     Elixirc.start!(state)
-    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+    Supervisor.start_link(__MODULE__, state, name: __MODULE__)
   end
 
-  def init(:ok) do
+  def init(state) do
     children = [
-      worker(TestConsumer, [:ok])
+      worker(TestConsumer, [state])
     ]
     supervise(children, strategy: :one_for_one)
   end
@@ -33,8 +33,8 @@ defmodule TestConsumer do
   use Elixirc.Consumer
   alias Elixirc.Client
 
-  def start_link(:ok) do
-    Elixirc.Consumer.start_link(__MODULE__, :ok)
+  def start_link(state) do
+    Elixirc.Consumer.start_link(__MODULE__, state)
   end
 
   def handle_command(:welcome, _args, state) do
@@ -48,6 +48,15 @@ defmodule TestConsumer do
   end
 
   def handle_command(_command, _args, state) do
+    {:ok, state}
+  end
+
+  def handle_event(:send, {request}, state) do
+    IO.puts("Sent message #{request}")
+    {:ok, state}
+  end
+
+  def handle_event(_event, _args, state) do
     {:ok, state}
   end
 end

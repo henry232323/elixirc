@@ -3,8 +3,8 @@ defmodule Elixirc.Consumer do
     alias Elixirc.Client
     require Logger
 
-    def start_link(module, :ok) do
-      GenStage.start_link(__MODULE__, module, name: __MODULE__)
+    def start_link(module, state) do
+      GenStage.start_link(__MODULE__, %{state: state, module: module}, name: __MODULE__)
     end
 
     def init(state) do
@@ -17,33 +17,37 @@ defmodule Elixirc.Consumer do
           {:ok, state}
         end
 
-        defoverridable [handle_command: 3]
+        def handle_event(_command, _args, state) do
+          {:ok, state}
+        end
+
+        defoverridable [handle_command: 3, handle_event: 3]
       end
     end
 
-    def handle_command(:ping, [msg | msg], state) do
+    defp handle_command_internal(:ping, [msg | msg], state) do
       if state.pinging do
         Client.send(["PONG", msg])
       end
       {:ok, state}
     end
 
-    def handle_command(:namreply, [_user, "=", channel, _name | names], state) do
+    defp handle_command_internal(:namreply, [_user, "=", channel, _name | names], state) do
       users = names
               |> String.replace_prefix(":", "")
               |> String.split(" ")
       {:ok, %{state | users: Map.put(state.users, channel, users)}}
     end
 
-    def handle_command(:join, [user, channel], state) do
+    defp handle_command_internal(:join, [user, channel], state) do
       {:ok, %{state | users: Map.put(state.users, channel, List.insert_at(state.users[channel], -1, user))}}
     end
 
-    def handle_command(:part, [user, channel], state) do
+    defp handle_command_internal(:part, [user, channel], state) do
       {:ok, %{state | users: Map.put(state.users, channel, List.delete(state.users[channel], user))}}
     end
 
-    def handle_command(:notice, _args, state) do
+    defp handle_command_internal(:notice, _args, state) do
       Logger.info("Received :notice, sending login #{state.nick}, #{state.name}")
       Client.send(["NICK", state.nick])
       Client.send(["USER", state.name, state.address, state.address, state.name])
@@ -53,14 +57,23 @@ defmodule Elixirc.Consumer do
       {:ok, state}
     end
 
-    def handle_events([{command, args, clientstate}], _from, module) do
-      overrides = [:part, :join, :namreply, :ping, :notice]
-      if command in overrides do
-        {:ok, clientstate} = handle_command(command, args, clientstate)
-      end
-      {:ok, newclientstate} = module.handle_command(command, args, clientstate)
-      GenStage.cast(Elixirc.EventManager, {:update_state, newclientstate})
-      {:noreply, [], module}
+    def handle_events(events, _from, %{module: module, state: state}) do
+      overrides = [:notice, :part, :join, :namreply, :ping]
+      new_state = Enum.reduce(events, state, fn
+        {:command, {command, args, _socket}}, newstate ->
+          {:ok, newstate} = if command in overrides do
+                  handle_command_internal(command, args, newstate)
+                else
+                  {:ok, state}
+                end
+          {:ok, newstate} = module.handle_command(command, args, newstate)
+          newstate
+        {event, args}, newstate ->
+          {:ok, newstate} = module.handle_event(event, args, newstate)
+          newstate
+      end)
+
+      {:noreply, [], %{module: module, state: new_state}}
     end
 
     def handle_events(_events, _from, module) do

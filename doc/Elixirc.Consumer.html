@@ -5,10 +5,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.16.1">
-    <title>Elixirc.Consumer – elixirc v0.1.2</title>
+    <title>Elixirc.Consumer – elixirc v0.2.2</title>
     <link rel="stylesheet" href="dist/app-4ecae1abb8.css" />
     
-    <script src="dist/sidebar_items-38861e4f47.js"></script>
+      <link rel="canonical" href="https://hexdocs.pm/elixirc/Elixirc.Consumer.html" />
+    
+    <script src="dist/sidebar_items-06478b821a.js"></script>
   </head>
   <body data-type="modules">
     <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
@@ -27,7 +29,7 @@
         elixirc
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.1.2
+        v0.2.2
       </h2>
     </div>
     
@@ -61,7 +63,7 @@
 
 
       <h1>
-        <small class="visible-xs">elixirc v0.1.2</small>
+        <small class="visible-xs">elixirc v0.2.2</small>
         Elixirc.Consumer
         
           <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L1" title="View Source" class="view-source" rel="help">
@@ -91,13 +93,7 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#handle_command/3">handle_command(atom, list, state)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#handle_events/3">handle_events(arg1, from, module)</a>
+    <a href="#handle_events/3">handle_events(events, from, module)</a>
   </div>
   
     <div class="summary-synopsis"><p>Invoked on <code class="inline">:producer_consumer</code> and <code class="inline">:consumer</code> stages to handle events</p>
@@ -115,7 +111,7 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#start_link/2">start_link(module, atom)</a>
+    <a href="#start_link/2">start_link(module, state)</a>
   </div>
   
 </div>
@@ -139,37 +135,16 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="handle_command/3">
-  
-  <div class="detail-header">
-    <a href="#handle_command/3" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">handle_command(atom, list, state)</span>
-    
-      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L23" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="handle_events/3">
+          <div class="detail" id="handle_events/3">
   
   <div class="detail-header">
     <a href="#handle_events/3" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">handle_events(arg1, from, module)</span>
+    <span class="signature">handle_events(events, from, module)</span>
     
-      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L30" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L60" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -194,7 +169,7 @@
     </a>
     <span class="signature">init(state)</span>
     
-      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L9" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L10" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -282,9 +257,9 @@ and the subscription options (as defined in <code class="inline">sync_subscribe/
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">start_link(module, atom)</span>
+    <span class="signature">start_link(module, state)</span>
     
-      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/henry232323/elixirc/blob/master/lib/elixirc/consumer.ex#L6" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>

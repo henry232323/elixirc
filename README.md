@@ -76,18 +76,18 @@ defmodule Elixirc.State do
             state: %{} # sub state
 end
 ```
- - Pinging:   If this is enabled the client will automatically handle PINGs for you
- - Reconnect: If this is enabled the client will reconnect upon a closed connection by the server
- - SSL:       If this is enabled the client will connect via SSL
- - Socket:    This is the socket that the client will read from, this is automatically overwritten
- - State:     A simple 'sub-state' available within the Client's state, can be modified without breaking anything
- - Address:   The server address
- - Port:      The server port
- - Channels:  The channel list
- - Users:     The user list
- - Nick:      The nick that will be used
- - Name:      The name that will be used
- - Pass:      The password that will be used with SASL/NickServ
+ - `Pinging:   If this is enabled the client will automatically handle PINGs for you`
+ - `Reconnect: If this is enabled the client will reconnect upon a closed connection by the server`
+ - `SSL:       If this is enabled the client will connect via SSL`
+ - `Socket:    This is the socket that the client will read from, this is automatically overwritten`
+ - `State:     A simple 'sub-state' available within the Client's state, can be modified without breaking anything`
+ - `Address:   The server address`
+ - `Port:      The server port`
+ - `Channels:  The channel list`
+ - `Users:     The user list`
+ - `Nick:      The nick that will be used`
+ - `Name:      The name that will be used`
+ - `Pass:      The password that will be used with SASL/NickServ`
 
 # Handle Commands
   `handle_command/3` will be called with every message sent from the server. As shown
@@ -102,6 +102,6 @@ end
   argument being the event, the second being a tuple of its arguments and the third
   being the state. Valid events include:
 
-  - `:socket_closed    {reason}`    The socket was closed for some reason
-  - `:close            {}`          The client/socket have been closed by user
-  - `:send             {message}`   A message has been sent to the server
+  - `:socket_closed    {reason}    The socket was closed for some reason`
+  - `:close            {}          The client/socket have been closed by user`
+  - `:send             {message}   A message has been sent to the server`

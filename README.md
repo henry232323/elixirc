@@ -90,17 +90,18 @@ end
  - Pass:      The password that will be used with SASL/NickServ
 
 # Handle Commands
-  handle_command/3 will be called with every message sent from the server. As shown
+  `handle_command/3` will be called with every message sent from the server. As shown
   in the above examples it will be called first with an atom representing the command
   (usually in all caps in the message as the first argument, or if a numeric command
   is preceded by a prefix) then a list of its arguments, and finally the current state
   as defined above.
 
 # Handle Event
-  handle_event/3 will be called with every action on the part of the client and certain
-  other events. It operates in the same fashion as handle_command/3 with the first
+  `handle_event/3` will be called with every action on the part of the client and certain
+  other events. It operates in the same fashion as `handle_command/3` with the first
   argument being the event, the second being a tuple of its arguments and the third
   being the state. Valid events include:
+  
     - :socket_closed    {reason}    The socket was closed for some reason
     - :close            {}          The client/socket have been closed by user
     - :send             {message}   A message has been sent to the server

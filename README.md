@@ -104,7 +104,7 @@ end
   `handle_event/3` will be called with every action on the part of the client and certain
   other events. It operates in the same fashion as `handle_command/3` with the first
   argument being the event, the second being a tuple of its arguments and the third
-  being the state. Valid events include:
+  being the state. Valid events currently include:
 
     - :socket_closed    {reason}    The socket was closed for some reason
     - :close            {}          The client/socket have been closed by user
